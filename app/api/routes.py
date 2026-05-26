@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from app.models.schemas import ClasificacionRequest, ResultadoClasificacion
 from app.services.llm_service import llm_service
 
@@ -10,5 +10,8 @@ async def clasificar_temperamento(payload: ClasificacionRequest) -> ResultadoCla
     Recibe un texto descriptivo del temperamento de un animal y devuelve 
     4 valores numéricos (1-5) procesados por IA.
     """
-    result = await llm_service.clasificar_texto(payload.nombre, payload.texto_a_clasificar)
-    return result
+    try:
+        result = await llm_service.clasificar_texto(payload.nombre, payload.texto_a_clasificar)
+        return result
+    except Exception:
+        raise HTTPException(status_code=500, detail="Error interno al procesar la clasificación")
