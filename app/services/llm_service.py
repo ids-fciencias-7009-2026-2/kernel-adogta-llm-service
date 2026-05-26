@@ -22,8 +22,6 @@ class LLMService:
         try:
             return await self.chain.ainvoke({"text": text})
         except Exception as e:
-            return ResultadoMapeo(
-                nivelEnergia=3, sociableNinos=3, sociableMascotas=3, independencia=3
-            )
+            raise RuntimeError("Error al invocar OpenAI") from e
 
 llm_service = LLMService()
