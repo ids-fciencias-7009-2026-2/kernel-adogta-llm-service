@@ -4,8 +4,8 @@ from app.services.llm_service import llm_service
 
 router = APIRouter()
 
-@router.post("/clasificar-temperamento", response_model=ResultadoMapeo)
-async def clasificar_temperamento(payload: ClasificacionRequest) -> ResultadoMapeo:
+@router.post("/clasificar-temperamento", response_model=ResultadoClasificacion)
+async def clasificar_temperamento(payload: ClasificacionRequest) -> ResultadoClasificacion:
     """
     Recibe un texto descriptivo del temperamento de un animal y devuelve 
     4 valores numéricos (1-5) procesados por IA.
